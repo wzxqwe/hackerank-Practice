@@ -1,0 +1,35 @@
+#############sample input##################
+{[()]}
+{[(])}
+{{[[(())]]}}
+#############sample output#################
+True
+Flase
+True
+
+
+
+####################### Solution ####################
+def is_matched(expression):
+    pairs = {'{' : '}', '[' : ']', '(' : ')'}
+    sk = []
+    for c in expression:
+        if c in pairs:
+            sk.append(pairs[c])
+        elif not sk or c != sk.pop():
+            return False
+    return not sk
+    
+    
+    
+############# another interesting logic################
+# for large unideal input, this could be slower than the dict ver as complexity is o(n^2) because the "while" and ".replace"
+def is_matched(e):
+    while ( len(e) > 0):
+        t=e
+        e = e.replace('()','')
+        e = e.replace('{}','')
+        e = e.replace('[]','')
+        if t==e:
+            return False
+    return True
