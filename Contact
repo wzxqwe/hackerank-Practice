@@ -1,0 +1,33 @@
+
+
+
+n = int(input().strip())
+
+root = {'childrens': 0}
+
+def add_word(word):
+    node = root
+    node['childrens'] += 1
+
+    for l in word:
+        n = node.get(l, None)
+        if n is None:
+            n = {'childrens': 0}
+            node[l] = n
+        node = n
+        node['childrens']  += 1
+
+def search_partial(prefix):
+    node = root
+    for l in prefix:
+        if l not in node:
+            return 0
+        node = node[l]
+    return node['childrens']
+for a0 in range(n):
+    op, contact = input().strip().split(' ')
+    if op == "add":
+        add_word(contact)
+    else:
+        print(search_partial(contact))
+            
